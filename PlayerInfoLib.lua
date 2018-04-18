@@ -21,11 +21,11 @@ local stringUpper = string.upper
 local cache = {}
 
 
-function GetPlayerInfoByName(player_name)
-    local player_info = cache[player_name]
+function GetPlayerInfoByName(playerName)
+    local playerInfo = cache[playerName]
 
-    if player_info then
-        return unpack(player_info)
+    if playerInfo then
+        return unpack(playerInfo)
     end
 end
 
@@ -42,13 +42,13 @@ local function storeUnit(unit)
     local name = UnitName(unit)
 
     if name and (not cache[name] or not cache[name][1]) then
-        local localized_class, class = UnitClass(unit)
-        local localized_race, race = UnitRace(unit)
+        local localizedClass, class = UnitClass(unit)
+        local localizedRace, race = UnitRace(unit)
         local gender = UnitSex(unit)
 
         storePlayerInfo(name,
-                        localized_class, class,
-                        localized_race, race,
+                        localizedClass, class,
+                        localizedRace, race,
                         gender)
     end
 end
@@ -62,27 +62,27 @@ function PIL:UPDATE_MOUSEOVER_UNIT()
 end
 
 function PIL:WHO_LIST_UPDATE()
-    local num_whos = GetNumWhoResults()
-    local name, localized_race, race, class
-    for i = 1, num_whos do
-        name, _, _, localized_race, class = GetWhoInfo(i)
-        race = localized_race == 'Undead' and 'Scourge' or localized_race
+    local numWhos = GetNumWhoResults()
+    local name, localizedRace, race, class
+    for i = 1, numWhos do
+        name, _, _, localizedRace, class = GetWhoInfo(i)
+        race = localizedRace == 'Undead' and 'Scourge' or localizedRace
         if not cache[name] then
             storePlayerInfo(name,
                             class, stringUpper(class),
-                            localized_race, race)
+                            localizedRace, race)
         end
     end
 end
 
 
 function PIL:PLAYER_LOGIN()
-    local default_color_mt = {
+    local defaultColorMt = {
         __index = function()
             return { r = 0.75, g = 0.75, b = 0.75 }
         end
     }
-    setmetatable(RAID_CLASS_COLORS, default_color_mt)
+    setmetatable(RAID_CLASS_COLORS, defaultColorMt)
 
     local realm = GetRealmName()
 
