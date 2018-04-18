@@ -1,0 +1,11 @@
+## Interface: 11200
+## Title: PlayerInfoLib
+## Notes: Global player information store
+## Author: martinjlowm
+## Version: 1.0
+## SavedVariables: PlayerInfoData
+
+libs\LibStub\LibStub.lua
+libs\Sol\Sol.lua
+
+PlayerInfoLib.lua
