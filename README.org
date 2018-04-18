@@ -1,0 +1,10 @@
+#+TITLE: PlayerInfoLib
+
+Supplies a routine to lookup unit info by name.
+
+* Usage
+
+#+BEGIN_SRC lua
+  local name = UnitName('target')
+  local name, localizedClass, class, localizedRace, race, gender = GetPlayerInfoByName(name)
+#+END_SRC
