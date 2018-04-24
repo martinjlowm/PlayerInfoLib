@@ -86,7 +86,8 @@ function PIL:PLAYER_LOGIN()
 
     local realm = GetRealmName()
 
-    PlayerInfoData = PlayerInfoData or { [realm] = {} }
+    PlayerInfoData = PlayerInfoData or {}
+    PlayerInfoData[realm] = PlayerInfoData[realm] or {}
     local mt = {
         __index = function(t, name)
             return name and PlayerInfoData[realm][name]
